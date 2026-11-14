@@ -1,0 +1,1 @@
+{"description":"Public endpoint wrapper for the bsc-contract-audit skill — evidence-graded GO/CAUTION/BLOCK verdicts for BSC contracts from live on-chain state. Read-only.","engines":{"node":">=20"},"main":"server.js","name":"bsc-contract-guard","private":true,"scripts":{"start":"node server.js","test:local":"curl -s http://localhost:8791/health"},"version":"0.1.0"}

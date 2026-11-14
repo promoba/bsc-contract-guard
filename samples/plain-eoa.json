@@ -1,0 +1,58 @@
+{
+  "service": "bsc-contract-guard",
+  "version": "0.1.0",
+  "chainId": 56,
+  "address": "0x1c22fc218231844db46b1ae1cdec2e7dcc281cba",
+  "implementation": null,
+  "classification": "NOT_A_CONTRACT",
+  "block": 133572928,
+  "timestamp": "2026-11-14T23:07:32.600+07:00",
+  "source": {
+    "provider": "Sourcify",
+    "status": "none"
+  },
+  "score": 0,
+  "verdict": "BLOCK",
+  "verdictCode": 0,
+  "bindingCap": null,
+  "decision": "BLOCK — Address holds no contract bytecode on BSC. (ADVISORY — the user's explicit approval is the only transaction gate)",
+  "findings": [
+    {
+      "severity": "Critical",
+      "title": "Not a contract",
+      "evidence": "E2"
+    }
+  ],
+  "unproven": [],
+  "evidenceLog": [
+    {
+      "id": "E1",
+      "check": "eth_blockNumber",
+      "result": "133572928"
+    },
+    {
+      "id": "E2",
+      "check": "eth_getCode",
+      "result": "empty — not a contract"
+    }
+  ],
+  "commitment": {
+    "scheme": "poseidon5(address, block, reportHashLo, reportHashHi, verdictCode)",
+    "inputs": {
+      "address": "0x1c22fc218231844db46b1ae1cdec2e7dcc281cba",
+      "block": 133572928,
+      "verdictCode": 0,
+      "reportHash": null
+    },
+    "note": "Feed these inputs to proof/circuit to obtain the Groth16 verdict-commitment proof; the finalized zkVerify tx hash / aggregation id is the competition proof reference."
+  },
+  "elapsedMs": 1604,
+  "dispatch": {
+    "taskId": null,
+    "type": null,
+    "hmac": {
+      "provided": false,
+      "verified": null
+    }
+  }
+}

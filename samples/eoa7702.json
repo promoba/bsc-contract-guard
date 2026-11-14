@@ -1,0 +1,65 @@
+{
+  "service": "bsc-contract-guard",
+  "version": "0.1.0",
+  "chainId": 56,
+  "address": "0xbef84fb7a87265638c02f72c64c748267afdafdc",
+  "implementation": "0x490aac77c960b0569c8e446ac7e12490bd44ca1d",
+  "classification": "EOA_7702_DELEGATED",
+  "block": 133572925,
+  "timestamp": "2026-11-14T23:07:30.979+07:00",
+  "source": {
+    "provider": "Sourcify",
+    "status": "none"
+  },
+  "score": 55,
+  "verdict": "CAUTION",
+  "verdictCode": 1,
+  "bindingCap": null,
+  "decision": "CAUTION — Address is an EOA with an EIP-7702 delegation to 0x490aac77c960b0569c8e446ac7e12490bd44ca1d; re-run the audit on the delegate for a code verdict. (ADVISORY — the user's explicit approval is the only transaction gate)",
+  "findings": [
+    {
+      "severity": "Moderate",
+      "title": "EIP-7702 delegated EOA — bytecode is a delegation designator, not contract logic",
+      "evidence": "E2,E3"
+    }
+  ],
+  "unproven": [
+    "Delegate contract logic — audit the delegate address directly"
+  ],
+  "evidenceLog": [
+    {
+      "id": "E1",
+      "check": "eth_blockNumber",
+      "result": "133572925"
+    },
+    {
+      "id": "E2",
+      "check": "eth_getCode",
+      "result": "23 bytes, keccak256=c4ccbe092743099a70ae6a593d1eb2c827b3fec98da78fef9063a2d5e4a10699"
+    },
+    {
+      "id": "E3",
+      "check": "EIP-7702 designator",
+      "result": "delegate=0x490aac77c960b0569c8e446ac7e12490bd44ca1d"
+    }
+  ],
+  "commitment": {
+    "scheme": "poseidon5(address, block, reportHashLo, reportHashHi, verdictCode)",
+    "inputs": {
+      "address": "0xbef84fb7a87265638c02f72c64c748267afdafdc",
+      "block": 133572925,
+      "verdictCode": 1,
+      "reportHash": "0xc4ccbe092743099a70ae6a593d1eb2c827b3fec98da78fef9063a2d5e4a10699"
+    },
+    "note": "Feed these inputs to proof/circuit to obtain the Groth16 verdict-commitment proof; the finalized zkVerify tx hash / aggregation id is the competition proof reference."
+  },
+  "elapsedMs": 1308,
+  "dispatch": {
+    "taskId": null,
+    "type": null,
+    "hmac": {
+      "provided": false,
+      "verified": null
+    }
+  }
+}

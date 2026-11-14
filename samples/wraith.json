@@ -1,0 +1,111 @@
+{
+  "service": "bsc-contract-guard",
+  "version": "0.1.0",
+  "chainId": 56,
+  "address": "0x4a318eb842c8c95876e895258bc70d0bee767def",
+  "implementation": null,
+  "classification": "MINT",
+  "block": 133572752,
+  "timestamp": "2026-11-14T23:06:23.684+07:00",
+  "source": {
+    "provider": "Sourcify",
+    "status": "exact_match"
+  },
+  "score": 100,
+  "verdict": "GO",
+  "verdictCode": 2,
+  "bindingCap": null,
+  "decision": "GO — No binding caps triggered; live state and verified source agree at the pinned block. (ADVISORY — the user's explicit approval is the only transaction gate)",
+  "findings": [
+    {
+      "severity": "Low",
+      "title": "Mint authority is a contract (0xeb436309d24e4fb3d80fde103eeb765c443f6bbe) with no supply cap — that contract's governance is the residual risk",
+      "evidence": "E5,E6,E10"
+    },
+    {
+      "severity": "Low",
+      "title": "Owner fund-moving selectors present (sweep/rescue/withdraw) — principal-drain not proven in quick triage",
+      "evidence": "E5"
+    }
+  ],
+  "unproven": [
+    "Buy/sell tax rate — not proven from source in quick triage (needs exact-match source read or simulation)",
+    "Holder concentration — log-reconstruction not run by the endpoint quick triage"
+  ],
+  "evidenceLog": [
+    {
+      "id": "E1",
+      "check": "eth_blockNumber",
+      "result": "133572752"
+    },
+    {
+      "id": "E2",
+      "check": "eth_getCode",
+      "result": "6570 bytes, keccak256=ae308c9dec4adf4c5ba9976e71730fd08eb65386b04c79f5d08faa1a10a2ff6a"
+    },
+    {
+      "id": "E3",
+      "check": "proxy slots (EIP-1967)",
+      "result": "no EIP-1967 proxy pattern"
+    },
+    {
+      "id": "E4",
+      "check": "meta name/symbol/decimals/totalSupply",
+      "result": "{\"name()\":\"Wraith\",\"symbol()\":\"WRAITH\",\"decimals()\":\"(revert)\",\"totalSupply()\":\"(revert)\"}"
+    },
+    {
+      "id": "E5",
+      "check": "selector scan (selectors.md)",
+      "result": "16 hits: owner(), transferOwnership(address), renounceOwnership(), withdraw(), ownerOf(uint256), tokenURI(uint256), supportsInterface(bytes4), totalMinted(), MAX_PER_WALLET(), MINT_PRICE(), setBaseURI(string), royaltyInfo(uint256,uint256), name(), symbol(), balanceOf(address), approve(address,uint25"
+    },
+    {
+      "id": "E6",
+      "check": "owner()",
+      "result": "0xeb436309d24e4fb3d80fde103eeb765c443f6bbe"
+    },
+    {
+      "id": "E7",
+      "check": "paused()",
+      "result": "no paused()"
+    },
+    {
+      "id": "E8",
+      "check": "eth_getBalance (contract)",
+      "result": "250000000000000 wei"
+    },
+    {
+      "id": "E9",
+      "check": "Sourcify v2 verified source",
+      "result": "exact_match (runtimeMatch=exact_match)"
+    },
+    {
+      "id": "E10",
+      "check": "maxSupply()/cap()",
+      "result": "no on-chain supply cap found"
+    },
+    {
+      "id": "E11",
+      "check": "owner() code size",
+      "result": "owner is a contract"
+    }
+  ],
+  "commitment": {
+    "scheme": "poseidon5(address, block, reportHashLo, reportHashHi, verdictCode)",
+    "inputs": {
+      "address": "0x4a318eb842c8c95876e895258bc70d0bee767def",
+      "block": 133572752,
+      "verdictCode": 2,
+      "reportHash": "0xae308c9dec4adf4c5ba9976e71730fd08eb65386b04c79f5d08faa1a10a2ff6a"
+    },
+    "note": "Feed these inputs to proof/circuit to obtain the Groth16 verdict-commitment proof; the finalized zkVerify tx hash / aggregation id is the competition proof reference."
+  },
+  "elapsedMs": 11465,
+  "dispatch": {
+    "taskId": "local-wraith",
+    "type": "agent-games.wildcard.probe",
+    "hmac": {
+      "provided": false,
+      "verified": null
+    }
+  }
+}

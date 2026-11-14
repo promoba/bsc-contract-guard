@@ -1,0 +1,112 @@
+{
+  "service": "bsc-contract-guard",
+  "version": "0.1.0",
+  "chainId": 56,
+  "address": "0xef870a9b4a529373fb2e174b59ca7a66eb018074",
+  "implementation": null,
+  "classification": "MINT",
+  "block": 133572841,
+  "timestamp": "2026-11-14T23:07:03.102+07:00",
+  "source": {
+    "provider": "Sourcify",
+    "status": "exact_match"
+  },
+  "score": 60,
+  "verdict": "CAUTION",
+  "verdictCode": 1,
+  "bindingCap": 60,
+  "decision": "CAUTION — Score capped/deducted to 60: binding cap 60 — read the findings before transacting. (ADVISORY — the user's explicit approval is the only transaction gate)",
+  "findings": [
+    {
+      "severity": "Moderate",
+      "title": "Mint path present, owner (EOA) live, and no supply cap is enforced on-chain",
+      "evidence": "E5,E6,E9"
+    },
+    {
+      "severity": "Low",
+      "title": "Owner fund-moving selectors present (sweep/rescue/withdraw) — principal-drain not proven in quick triage",
+      "evidence": "E5"
+    }
+  ],
+  "unproven": [
+    "Buy/sell tax rate — not proven from source in quick triage (needs exact-match source read or simulation)",
+    "Holder concentration — log-reconstruction not run by the endpoint quick triage",
+    "Mint price, mint-fund destination, and baseURI/reveal mutability — full MINT path not probed by quick triage"
+  ],
+  "evidenceLog": [
+    {
+      "id": "E1",
+      "check": "eth_blockNumber",
+      "result": "133572841"
+    },
+    {
+      "id": "E2",
+      "check": "eth_getCode",
+      "result": "10102 bytes, keccak256=2b35c6537fc02e4b8c1db3263c9a940a557030a8fbeb30a0e7a4d622f5db2eae"
+    },
+    {
+      "id": "E3",
+      "check": "proxy slots (EIP-1967)",
+      "result": "no EIP-1967 proxy pattern"
+    },
+    {
+      "id": "E4",
+      "check": "meta name/symbol/decimals/totalSupply",
+      "result": "{\"name()\":\"Saturnagent\",\"symbol()\":\"SATURNAGENT\",\"decimals()\":\"(revert)\",\"totalSupply()\":\"2000\"}"
+    },
+    {
+      "id": "E5",
+      "check": "selector scan (selectors.md)",
+      "result": "17 hits: owner(), transferOwnership(address), renounceOwnership(), mint(uint256), withdraw(), ownerOf(uint256), tokenURI(uint256), supportsInterface(bytes4), mint(uint256), MAX_PER_WALLET(), PRICE(), royaltyInfo(uint256,uint256), name(), symbol(), totalSupply(), balanceOf(address), approve(address,u"
+    },
+    {
+      "id": "E6",
+      "check": "owner()",
+      "result": "0x6f244724f61d8c7fc9af40dd37ff7c82bf2b8f5d"
+    },
+    {
+      "id": "E7",
+      "check": "paused()",
+      "result": "no paused()"
+    },
+    {
+      "id": "E8",
+      "check": "eth_getBalance (contract)",
+      "result": "0 wei"
+    },
+    {
+      "id": "E9",
+      "check": "Sourcify v2 verified source",
+      "result": "exact_match (runtimeMatch=exact_match)"
+    },
+    {
+      "id": "E10",
+      "check": "maxSupply()/cap()",
+      "result": "no on-chain supply cap found"
+    },
+    {
+      "id": "E11",
+      "check": "owner() code size",
+      "result": "owner is an EOA"
+    }
+  ],
+  "commitment": {
+    "scheme": "poseidon5(address, block, reportHashLo, reportHashHi, verdictCode)",
+    "inputs": {
+      "address": "0xef870a9b4a529373fb2e174b59ca7a66eb018074",
+      "block": 133572841,
+      "verdictCode": 1,
+      "reportHash": "0x2b35c6537fc02e4b8c1db3263c9a940a557030a8fbeb30a0e7a4d622f5db2eae"
+    },
+    "note": "Feed these inputs to proof/circuit to obtain the Groth16 verdict-commitment proof; the finalized zkVerify tx hash / aggregation id is the competition proof reference."
+  },
+  "elapsedMs": 11158,
+  "dispatch": {
+    "taskId": null,
+    "type": null,
+    "hmac": {
+      "provided": false,
+      "verified": null
+    }
+  }
+}

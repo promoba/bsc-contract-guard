@@ -1,0 +1,9 @@
+node_modules/
+*.log
+*.pid
+kurier.json
+.env
+proof/circuit/build/*.ptau
+proof/circuit/build/*.zkey
+proof/circuit/build/*.r1cs
+proof/circuit/build/*_js/

@@ -1,0 +1,106 @@
+{
+  "service": "bsc-contract-guard",
+  "version": "0.1.0",
+  "chainId": 56,
+  "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+  "implementation": null,
+  "classification": "TOKEN",
+  "block": 133572728,
+  "timestamp": "2026-11-14T23:06:12.101+07:00",
+  "source": {
+    "provider": "Sourcify",
+    "status": "exact_match"
+  },
+  "score": 100,
+  "verdict": "GO",
+  "verdictCode": 2,
+  "bindingCap": null,
+  "decision": "GO — No binding caps triggered; live state and verified source agree at the pinned block. (ADVISORY — the user's explicit approval is the only transaction gate)",
+  "findings": [
+    {
+      "severity": "Low",
+      "title": "Mint authority is a contract (0x73feaa1ee314f8c655e354234017be2193c9e24e) with no supply cap — that contract's governance is the residual risk",
+      "evidence": "E5,E6,E10"
+    }
+  ],
+  "unproven": [
+    "Buy/sell tax rate — not proven from source in quick triage (needs exact-match source read or simulation)",
+    "Holder concentration — log-reconstruction not run by the endpoint quick triage"
+  ],
+  "evidenceLog": [
+    {
+      "id": "E1",
+      "check": "eth_blockNumber",
+      "result": "133572728"
+    },
+    {
+      "id": "E2",
+      "check": "eth_getCode",
+      "result": "7285 bytes, keccak256=21b2b23f1103cfdca4d9dd3ba0480364852b6cc3c71497a1f3f0bd7d4b56264c"
+    },
+    {
+      "id": "E3",
+      "check": "proxy slots (EIP-1967)",
+      "result": "no EIP-1967 proxy pattern"
+    },
+    {
+      "id": "E4",
+      "check": "meta name/symbol/decimals/totalSupply",
+      "result": "{\"name()\":\"PancakeSwap Token\",\"symbol()\":\"Cake\",\"decimals()\":\"18\",\"totalSupply()\":\"5836751255751051201610995531\"}"
+    },
+    {
+      "id": "E5",
+      "check": "selector scan (selectors.md)",
+      "result": "13 hits: owner(), transferOwnership(address), renounceOwnership(), mint(address,uint256), mint(uint256), mint(uint256), name(), symbol(), decimals(), totalSupply(), balanceOf(address), transfer(address,uint256), approve(address,uint256)"
+    },
+    {
+      "id": "E6",
+      "check": "owner()",
+      "result": "0x73feaa1ee314f8c655e354234017be2193c9e24e"
+    },
+    {
+      "id": "E7",
+      "check": "paused()",
+      "result": "no paused()"
+    },
+    {
+      "id": "E8",
+      "check": "eth_getBalance (contract)",
+      "result": "250000000000000 wei"
+    },
+    {
+      "id": "E9",
+      "check": "Sourcify v2 verified source",
+      "result": "exact_match (runtimeMatch=match)"
+    },
+    {
+      "id": "E10",
+      "check": "maxSupply()/cap()",
+      "result": "no on-chain supply cap found"
+    },
+    {
+      "id": "E11",
+      "check": "owner() code size",
+      "result": "owner is a contract"
+    }
+  ],
+  "commitment": {
+    "scheme": "poseidon5(address, block, reportHashLo, reportHashHi, verdictCode)",
+    "inputs": {
+      "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+      "block": 133572728,
+      "verdictCode": 2,
+      "reportHash": "0x21b2b23f1103cfdca4d9dd3ba0480364852b6cc3c71497a1f3f0bd7d4b56264c"
+    },
+    "note": "Feed these inputs to proof/circuit to obtain the Groth16 verdict-commitment proof; the finalized zkVerify tx hash / aggregation id is the competition proof reference."
+  },
+  "elapsedMs": 11040,
+  "dispatch": {
+    "taskId": "local-cake",
+    "type": "agent-games.wildcard.probe",
+    "hmac": {
+      "provided": false,
+      "verified": null
+    }
+  }
+}
