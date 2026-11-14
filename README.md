@@ -1,3 +1,13 @@
+---
+title: BSC Contract Guard
+emoji: "\U0001F6E1\uFE0F"
+colorFrom: yellow
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # BSC Contract Guard — endpoint
 
 Thin public-HTTPS wrapper around the production `bsc-contract-audit` skill
