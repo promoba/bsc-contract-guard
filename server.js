@@ -34,9 +34,19 @@ const { execFile } = require("node:child_process");
 const path = require("node:path");
 
 const PORT = Number(process.env.PORT || 8791);
-const SKILL_DIR =
-  process.env.BSC_AUDIT_SKILL_DIR ||
-  path.join(process.env.HOME, "workspace/custom-skills/bsc-contract-audit");
+const SKILL_DIR = (() => {
+  const fs = require("node:fs");
+  const candidates = [
+    process.env.BSC_AUDIT_SKILL_DIR,
+    path.join(process.env.HOME || "", "workspace/custom-skills/bsc-contract-audit"),
+    path.join(__dirname, "vendor/bsc-contract-audit"),
+  ].filter(Boolean);
+  return (
+    candidates.find((d) => {
+      try { return fs.existsSync(path.join(d, "scripts/rpc.py")); } catch { return false; }
+    }) || candidates[0]
+  );
+})();
 const RPC_PY = path.join(SKILL_DIR, "scripts/rpc.py");
 const SELECTORS = path.join(SKILL_DIR, "references/selectors.md");
 const HMAC_SECRET = process.env.GUARD_HMAC_SECRET || "";
